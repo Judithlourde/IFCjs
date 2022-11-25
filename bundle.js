@@ -121836,6 +121836,8 @@ class IfcViewerAPI {
 
 const container = document.getElementById('viewer-container');
 const viewer = new IfcViewerAPI({ container });
+
+// Create grid and axes
 viewer.axes.setAxes();
 viewer.grid.setGrid();
 
@@ -121851,3 +121853,18 @@ input.addEventListener("change",
 
     false
 );
+
+async function loadIfc() {
+    // Load the model
+    const model = await viewer.IFC.loadIfcUrl('../IFC/01.ifc');
+
+    // Add dropped shadow and post-processing efect
+    await viewer.shadowDropper.renderShadow(model.modelID);
+    viewer.context.renderer.postProduction.active = true;
+    console.log(model.modelID);
+}
+
+loadIfc();
+
+window.ondblclick = async () => await viewer.IFC.selector.pickIfcItem();
+window.onmousemove = async () => await viewer.IFC.selector.prePickIfcItem();
