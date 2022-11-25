@@ -1,27 +1,3 @@
-var NavigationModes;
-(function (NavigationModes) {
-    NavigationModes[NavigationModes["Orbit"] = 0] = "Orbit";
-    NavigationModes[NavigationModes["FirstPerson"] = 1] = "FirstPerson";
-    NavigationModes[NavigationModes["Plan"] = 2] = "Plan";
-})(NavigationModes || (NavigationModes = {}));
-var CameraProjections;
-(function (CameraProjections) {
-    CameraProjections[CameraProjections["Perspective"] = 0] = "Perspective";
-    CameraProjections[CameraProjections["Orthographic"] = 1] = "Orthographic";
-})(CameraProjections || (CameraProjections = {}));
-class IfcComponent {
-    constructor(context) {
-        context.addComponent(this);
-    }
-    update(_delta) { }
-}
-var dimension;
-(function (dimension) {
-    dimension["x"] = "x";
-    dimension["y"] = "y";
-    dimension["z"] = "z";
-})(dimension || (dimension = {}));
-
 /**
  * @license
  * Copyright 2010-2021 Three.js Authors
@@ -44174,6 +44150,30 @@ if ( typeof window !== 'undefined' ) {
 	}
 
 }
+
+var NavigationModes;
+(function (NavigationModes) {
+    NavigationModes[NavigationModes["Orbit"] = 0] = "Orbit";
+    NavigationModes[NavigationModes["FirstPerson"] = 1] = "FirstPerson";
+    NavigationModes[NavigationModes["Plan"] = 2] = "Plan";
+})(NavigationModes || (NavigationModes = {}));
+var CameraProjections;
+(function (CameraProjections) {
+    CameraProjections[CameraProjections["Perspective"] = 0] = "Perspective";
+    CameraProjections[CameraProjections["Orthographic"] = 1] = "Orthographic";
+})(CameraProjections || (CameraProjections = {}));
+class IfcComponent {
+    constructor(context) {
+        context.addComponent(this);
+    }
+    update(_delta) { }
+}
+var dimension;
+(function (dimension) {
+    dimension["x"] = "x";
+    dimension["y"] = "y";
+    dimension["z"] = "z";
+})(dimension || (dimension = {}));
 
 const _raycaster$1 = new Raycaster();
 
@@ -121835,7 +121835,7 @@ class IfcViewerAPI {
 }
 
 const container = document.getElementById('viewer-container');
-const viewer = new IfcViewerAPI({ container });
+const viewer = new IfcViewerAPI({ container, backgroundColor: new Color(0xE3ECF6) });
 
 // Create grid and axes
 viewer.axes.setAxes();
@@ -121861,7 +121861,7 @@ async function loadIfc() {
     // Add dropped shadow and post-processing efect
     await viewer.shadowDropper.renderShadow(model.modelID);
     viewer.context.renderer.postProduction.active = true;
-    console.log(model.modelID);
+    console.log(model);
 }
 
 loadIfc();
