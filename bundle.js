@@ -121866,5 +121866,17 @@ async function loadIfc() {
 
 loadIfc();
 
-window.ondblclick = async () => await viewer.IFC.selector.pickIfcItem();
-window.onmousemove = async () => await viewer.IFC.selector.prePickIfcItem();
+// window.ondblclick = async () => await viewer.IFC.selector.pickIfcItem();
+// window.onmousemove = async () => await viewer.IFC.selector.prePickIfcItem();
+
+window.ondblclick = () => viewer.IFC.selector.pickIfcItem(true);
+window.onmousemove = () => viewer.IFC.selector.prePickIfcItem();
+viewer.clipper.active = true;
+
+window.onkeydown = (event) => {
+    if (event.code === "KeyP") {
+        viewer.clipper.createPlane();
+    } else if (event.code === "KeyO") {
+        viewer.clipper.deletePlane();
+    }
+};
