@@ -99,8 +99,8 @@ import { IfcViewerAPI } from 'web-ifc-viewer';
 
 const container = document.getElementById('viewer-container');
 const viewer = new IfcViewerAPI({ container });
-// viewer.axes.setAxes();
-// viewer.grid.setGrid();
+viewer.axes.setAxes();
+viewer.grid.setGrid();
 
 const input = document.getElementById("file-input");
 
