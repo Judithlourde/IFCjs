@@ -97,7 +97,11 @@
 import { Color } from 'three';
 import { IfcViewerAPI } from 'web-ifc-viewer';
 const container = document.getElementById('viewer-container');
-const viewer = new IfcViewerAPI({ container });
+const viewer = new IfcViewerAPI({ container, backgroundColor: new Color(0xffffff) });
+// viewer.IFC.loader.ifcManager.applyWebIfcConfig({
+//     COORDINATE_TO_ORIGIN: true,
+//     USE_FAST_BOOLS: true,
+// });
 
 // Create grid and axes
 viewer.axes.setAxes();
@@ -107,38 +111,37 @@ const input = document.getElementById("file-input");
 
 input.addEventListener("change",
     async (changed) => {
+        await viewer.IFC.loader.ifcManager.applyWebIfcConfig({
+            COORDINATE_TO_ORIGIN: true,
+            USE_FAST_BOOLS: false,
+        });
         const file = changed.target.files[0];
         const ifcURL = URL.createObjectURL(file);
-        viewer.IFC.loader.ifcManager.applyWebIfcConfig({
-            COORDINATE_TO_ORIGIN: true,
-            USE_FAST_BOOLS: true,
-        });
         viewer.IFC.loadIfcUrl(ifcURL);
-        console.log(viewer);
     },
     false
 );
 
-async function loadIfc() {
-    await viewer.IFC.loader.ifcManager.applyWebIfcConfig({
-        COORDINATE_TO_ORIGIN: true,
-        USE_FAST_BOOLS: true,
-    });
+// async function loadIfc() {
+//     await viewer.IFC.loader.ifcManager.applyWebIfcConfig({
+//         COORDINATE_TO_ORIGIN: true,
+//         USE_FAST_BOOLS: true,
+//     });
 
-    // Load the model
-    const model = await viewer.IFC.loadIfcUrl('../IFC/02.ifc');
-    // Add dropped shadow and post-processing efect
-    // await viewer.shadowDropper.renderShadow(model.modelID);
-    // viewer.context.renderer.postProduction.active = true;
-    // console.log(model);
-}
+//     // Load the model
+//     const model = await viewer.IFC.loadIfcUrl('../IFC/02.ifc');
+//     // Add dropped shadow and post-processing efect
+//     // await viewer.shadowDropper.renderShadow(model.modelID);
+//     // viewer.context.renderer.postProduction.active = true;
+//     // console.log(model);
+// }
 
-loadIfc();
+// loadIfc();
 
-window.ondblclick = async () => await viewer.IFC.selector.pickIfcItem();
+window.ondblclick = async () => await viewer.IFC.selector.pickIfcItem(true);
 window.onmousemove = async () => await viewer.IFC.selector.prePickIfcItem();
 
-window.ondblclick = () => viewer.IFC.selector.pickIfcItem(true);
+window.ondblclick = () => viewer.IFC.selector.pickIfcItem();
 window.onmousemove = () => viewer.IFC.selector.prePickIfcItem();
 viewer.clipper.active = true;
 
