@@ -122,21 +122,21 @@ input.addEventListener("change",
     false
 );
 
-// async function loadIfc() {
-//     await viewer.IFC.loader.ifcManager.applyWebIfcConfig({
-//         COORDINATE_TO_ORIGIN: true,
-//         USE_FAST_BOOLS: true,
-//     });
+async function loadIfc() {
+    await viewer.IFC.loader.ifcManager.applyWebIfcConfig({
+        COORDINATE_TO_ORIGIN: true,
+        USE_FAST_BOOLS: true,
+    });
 
-//     // Load the model
-//     const model = await viewer.IFC.loadIfcUrl('../IFC/02.ifc');
-//     // Add dropped shadow and post-processing efect
-//     // await viewer.shadowDropper.renderShadow(model.modelID);
-//     // viewer.context.renderer.postProduction.active = true;
-//     // console.log(model);
-// }
+    // Load the model
+    const model = await viewer.IFC.loadIfcUrl('../IFC/04.ifc');
+    // Add dropped shadow and post-processing efect
+    // await viewer.shadowDropper.renderShadow(model.modelID);
+    // viewer.context.renderer.postProduction.active = true;
+    // console.log(model);
+}
 
-// loadIfc();
+loadIfc();
 
 window.ondblclick = async () => await viewer.IFC.selector.pickIfcItem(true);
 window.onmousemove = async () => await viewer.IFC.selector.prePickIfcItem();
